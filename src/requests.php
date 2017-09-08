@@ -461,6 +461,7 @@ try {
         throw new Exception("Functie $parameters->request bestaat niet");
     }
 
+    $returnObject = new \stdClass();
     $returnObject -> hasError = false;
     $returnObject -> errorMsg = null;
     $returnObject -> result = $result;
@@ -471,6 +472,7 @@ try {
     die();
 
 } catch (Exception $e) {
+    $returnObject = new \stdClass();
     $returnObject -> hasError = true;
     $returnObject -> errorMsg = $e -> getMessage();
     $returnObject -> result = null;
