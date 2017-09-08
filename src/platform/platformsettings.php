@@ -2,7 +2,11 @@
 /**
  * Connect to the mysql database.
  */
-$conn=mysql_connect("localhost", "root", "luttikcie teamsport");
+
+error_reporting(0);
+ini_set("display_errors", 0);
+
+$conn=mysql_connect("db", "root", "my-secret-pw");
 mysql_select_db('teamsport_app_n', $conn) or die(mysql_error());
 
 
