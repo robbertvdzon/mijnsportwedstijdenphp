@@ -1,0 +1,124 @@
+    <?php
+    echo __FILE__;
+    require_once "teamsport.php";
+/*
+    $from = "Teamsport <registratie@teamsport-app.nl>";
+    $to = "robbertvdzon@gmail.com";
+    $subject = "test email van teamsport";
+    $body = "Deze komt uit cron!";
+
+    $host = "localhost";
+    $port = "25";
+
+    $headers = array ('From' => $from,
+      'To' => $to,
+      'Subject' => $subject);
+    $smtp = Mail::factory('smtp',
+      array ('host' => $host,
+        'port' => $port));
+
+    $mail = $smtp->send($to, $headers, $body);
+
+    if (PEAR::isError($mail)) {
+      echo($mail->getMessage());
+     } else {
+      echo('Message successfully sent!');
+     }
+*/
+emailUserInvite("Robbert","robbert@vdzon.com","1234567","Outenaar");
+//emailUserInvite("Robbert","robbertvdzon2@gmail.com","1234567","Outenaar");
+//emailUser("Robbert","robbertvdzon2@gmail.com","1234567","robbert");
+
+
+function emailUserInvite($name, $email, $invitationID, $teamname) {
+    $to = $email;
+
+    // subject
+    $subject = 'Aanmelding voor mijnsportwedstrijden.nl...';
+
+    // message
+    $messageError = '
+    <html>
+    <body>
+      <b>Hoi ' . $name . '!</b>
+      <br>
+      <br>
+      Sluit je aan door op de volgend link te klikken: <a href=http://www.mijnsportwedstrijden.nl/join.php?id=' . $invitationID . '>[open]</a>
+      <br>
+      <br>
+    </body>
+    </html>
+    ';
+
+    $message = '
+    <html>
+    <head>
+      <title>Aanmelding</title>
+    </head>
+    <body>
+      <b>Beste '.$name.'</b>
+      <br>
+      <br>
+      Om je account bij Teamsport App te activeren, ga dan naar <a href=www.teamsport-app.nl/join.php>www.teamsport-app.nl/join.php</a> in vul de volgende code in: '.$invitationID.'
+      <br>
+      <br>
+
+    </body>
+    </html>
+    ';
+
+
+
+    //  Bekijk de uitnodiging via de volgende link: <a href=http://www.teamsport-app.nl/join.php?id=' . $invitationID . '>http://www.teamsport-app.nl/join.php?id=' . $invitationID . '</a>
+
+
+    // Mail it
+    $result = true;
+
+    $result = sendEmail($to ,$subject,$message);
+
+//      $result = mail($to, $subject, $message, $headers);
+//    }
+    return $result;
+}
+
+
+function emailUser($name,$email,$activationID,$username){
+    $to  = $email;
+
+    // subject
+    $subject = 'Aanmelding voor teamsport-app...';
+
+    // message
+    $message = '
+    <html>
+    <head>
+      <title>Aanmelding</title>
+    </head>
+    <body>
+      <b>Beste '.$name.'</b>
+      <br>
+      <br>
+      Om je account bij Teamsport App te activeren, klik dan op onderstaande link<br>
+      <br>
+      <a href=http://www.teamsport-app.nl/activate.php?activationID='.$activationID.'><b>activeer</b></a>
+      <br>
+      <br>
+      Je accountnaam is:'.$username.'
+      <br>
+      <br>
+      <small>Als je bovenstaande link niet werkt, kopieer dan de volgende link naar je browser:<br>
+      http://www.teamsport-app.nl/activate.php?activationID='.$activationID.'</small>
+
+    </body>
+    </html>
+    ';
+
+    // Mail it
+ //   if (!isLocalDatabase()){
+    $result = sendEmail($to ,$subject,$message);
+ //   }
+}
+
+
+    ?>

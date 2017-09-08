@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="app.css"/>
+
+<title>mijn sportwedstrijden</title>
+
+<script type="application/javascript" src="iscroll.js"></script>
+
+<script type="text/javascript">
+
+var myScroll;
+function loaded2() {
+	myScroll = new iScroll('wrapper');
+}
+
+
+/* ---------- */
+
+function loaded() {
+
+
+	myScroll = new iScroll('wrapper');
+
+	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+}
+
+
+
+
+function pullDownAction () {
+	myScroll.refresh();
+	refresh();
+}
+
+
+/* ---------- */
+
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+document.addEventListener('DOMContentLoaded', loaded, false);
+
+</script>
+
+
+	<script type="text/javascript" charset="utf-8" src="cordova-1.9.0.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", onDeviceReady, false);
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+	   phonegapReady();
+    }
+    </script>
+
+    <script src="header.js"></script>
+    <script src="util.js"></script>
+    <script src="md5.js"></script>
+    <script src="data.js"></script>
+    <script src="sportwedstrijden.js"></script>
+    <script src="sportwedstrijdendata.js"></script>
+
+</head>
+    <BODY onresize="onPageResize()" onload="initialize()">
+<!--T12T-->
+HALLO
+<!--T12T-->
+
+
+<!--------------------------------------------------------------------------------->
+<div id=workArea>
+	<div id="wrapper" >
+		<div id="scroller"  >
+			<ul id=loginpage style="display:" class="loginLayer" >
+				<li>
+
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p align=center >
+					<table id=table_login >
+						<tr height=20>
+			                <td id=spaceleft_login></td>
+							<td colspan=3>
+								&nbsp;
+							</td>
+        					<td id=spaceright_login></td>
+
+						</tr>
+						<tr>
+			                <td></td>
+							<td colspan=3>
+								<p id="loginError"></p>
+							</td>
+			                <td></td>
+						</tr>
+						<tr>
+			                <td></td>
+							<td>
+								Gebruikersnaam
+							</td>
+
+							<td>
+								&nbsp;&nbsp;:&nbsp;&nbsp;
+							</td>
+							<td>
+								<input type="text" size="25" value="" id=usernameField>
+							</td>
+			                <td></td>
+						</tr>
+
+
+						<tr height=20>
+							<td colspan=99>
+								&nbsp;
+							</td>
+						</tr>
+
+
+						<tr>
+			                <td></td>
+							<td>
+								Wachtwoord
+							</td>
+
+							</td>
+							<td>
+								&nbsp;&nbsp;:&nbsp;&nbsp;
+							</td>
+							<td>
+								<input type="password" size="25" value="" id=passwdField>
+							</td>
+			                <td></td>
+						</tr>
+
+						<tr height=20>
+							<td colspan=99>
+								&nbsp;
+							</td>
+						</tr>
+
+						<tr>
+			                <td></td>
+							<td colspan=3>
+								<img src="login.png" width=70px onclick="login()">
+							</td>
+			                <td></td>
+						</tr>
+
+						<tr height=20>
+							<td colspan=99>
+								&nbsp;
+							</td>
+						</tr>
+
+						<tr>
+			                <td></td>
+							<td colspan=3 align=left>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+							</td>
+			                <td></td>
+						</tr>
+
+
+
+					</table>
+					</p>
+					<p align=center id=loginData></p>
+
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100% ' id=pagewidth_login></div></td></tr></table>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+</div> <!-- work area layer !-->
+
+
+</body>
+</html>

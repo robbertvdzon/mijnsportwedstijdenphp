@@ -1,0 +1,723 @@
+
+
+A:hover {
+    background: #509b4a;
+}
+
+
+A{
+ border:1px solid #000;
+ background: #2e6735;
+ padding: 2px 6px;
+ font-family: Arial;
+ text-decoration : none;
+ color: #eaf9c3;
+ font-weight:bold;font-size: 13px;
+}
+
+.none{
+ border:0px solid #aaa;
+ background: transparent;
+}
+.none:hover{
+ border:0px solid #aaa;
+ background: transparent;
+}
+
+.none2,none2:hover{
+ border:0px solid #222;
+ color: #222; 
+ padding: 0px 0px; 
+ background: transparent;
+ text-decoration : none;
+}
+
+
+.none2:hover{
+ border:0px solid #aaa;
+ background: transparent;
+}
+
+
+.none3,none3:hover{
+ border:0px;
+ color: #000; 
+ padding: 0px 0px; 
+ background: transparent;
+ text-decoration : none;
+ font-weight:normal;font-size: 13px; 
+}
+
+.none3:hover{
+ color: #00a43e;
+ border:0px solid #aaa;
+ background: transparent;
+}
+
+
+.homelinks,homelinks:hover{
+ border:0px solid #222;
+ color: #149bd0; 
+ padding: 0px 0px; 
+ background: transparent;
+ text-decoration : none;
+ font-size: 16px;
+}
+
+
+.homelinks:hover{
+ border:0px solid #aaa;
+ background: transparent;
+}
+
+
+body {font-family: Arial;color: #333;text-decoration : none;font-size: 13px; }
+
+
+ul,li
+{
+font-size:20px;
+}
+
+td, th, ul, ol, li, sub, sup, p
+{
+	font-family: Arial;
+	color: #333;
+	font-size: 13px
+}
+
+h1
+{
+	font-family: Myriad Pro, Myriad, Helvetica, Verdana, Arial, Helvetica, sans-serif;
+	color: #00843e;
+	font-size: 18px
+}
+
+
+ 
+h3 { /* h3 wordt gebruikt voor de menu buttons (de niet geselecteerde knoppen) */
+	color: #7c7c7b;
+	font-size: 21px;
+    padding-right:10px;
+}
+
+h4 { /* h4 wordt gebruikt voor de menu buttons (de geselecteerde knoppen)  */
+	color: #000;
+	font-size: 21px;
+    padding-right:10px;
+}
+
+h5 { /* h5 wordt gebruikt voor de grote gewone knoppen */
+	color: #ffffff;
+	font-size: 22px;
+}
+
+h6 { /* h6 wordt gebruikt voor de kleinere gewone knoppen */
+	color: #ffffff;
+	font-size: 22px;
+}
+
+
+.clickabletable {
+    cursor: pointer;
+}
+
+.usersMenuItem{
+    height:30;
+    color: #eaf9c3;
+    font-size: 18px;
+}
+
+
+.button1 {
+    background-image: url(../images/buttons2.png);
+    layer-background-image: url(../images/buttons2.png);	
+    background-position: center;
+    background-repeat:no-repeat; 
+    cursor: pointer;
+}
+
+.button2 {
+    background-image: url(../images/buttons3.png);
+    layer-background-image: url(../images/buttons3.png);	
+    background-position: center;
+    background-repeat:no-repeat; 
+    cursor: pointer;
+}
+
+.forgotPasswordLocation {
+	width:400px;
+	left: 490px; 
+	top:-50px;
+	position:absolute;
+	border:0px solid #F00;
+}
+
+
+.menuButton1Back {
+    background-image: url(../images/menubutton1.png);
+    layer-background-image: url(../images/menubutton1.png);     
+    background-position: center;
+    background-repeat:no-repeat; 
+    cursor: pointer;
+}
+
+.menuButton2Back {
+    background-image: url(../images/menubutton2.png);
+    layer-background-image: url(../images/menubutton2.png); 
+    background-position: right;
+    background-repeat:no-repeat; 
+    background-position: center;
+    background-repeat:no-repeat; 
+    cursor: pointer;
+}
+
+
+body
+{
+     background-color:#ffffff;
+}
+
+
+img
+{
+	border: none;
+}
+
+* {
+	margin: 0;
+}
+
+.dualcolortableRowHighlight {
+    background: #d5ebd1
+}
+.dualcolortableRowNoHighlight {
+    background: #FFF
+}
+
+
+.listDate{
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   cursor: pointer;
+   font-weight:bold;
+}
+
+.listButtonSelected{
+   padding: 2px 6px;
+   background: #306e2b;
+   color: #eaf9c3;
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   cursor: pointer;
+   font-weight:bold;
+}
+.listButtonNotSelected{
+   padding: 2px 6px;
+	background: #d5ebd1;
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   cursor: pointer;
+   font-weight:bold;
+}
+
+.listButtonSeperator{
+	background: #000;
+}
+
+.listEditFields{
+    width:40px;
+    border:1px solid #eee;
+    margin:2px;
+    background: transparent;
+}
+
+.gameEditFields{
+    width:200px;
+    border:1px solid #000;
+    margin:2px;
+}
+
+.gameEditFields50{
+    width:50px;
+    border:1px solid #000;
+    margin:2px;
+}
+
+.gameEditFields150{
+    width:150px;
+    border:1px solid #000;
+    margin:2px;
+}
+
+
+.selectTeamDropdown {
+    width:150px;
+    border:1px solid #000;
+    margin:2px;
+} 
+
+.selectTeamDropdownOLD {
+    width:150px;
+    border:1px solid #000;
+    margin:2px;
+    background: #d5ebd1;
+} 
+
+
+.selectSeasonDropdown {
+    width:100px;
+    border:1px solid #000;
+    margin:2px;
+} 
+
+.selectSeasonDropdownOLD {
+    width:100px;
+    border:0px solid #fff;
+    background: #d5ebd1;
+    margin:2px;
+} 
+
+html, body {
+	height: 100%;
+    background-image: url(../images/site3-bg.jpg);
+    layer-background-image: url(../images/site3-bg.jpg);
+    background-position: center; 
+	
+}
+
+
+
+table, table tr, table tr td {
+ border-collapse: separate;
+ border-spacing: 0px;
+ margin: 0px;
+ padding: 0px;
+}
+
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -45px;
+}
+
+.footer, .push {
+	height: 45px;
+}
+
+.footer {
+	background-image: url('../images/bottom.png');
+}
+
+
+.site {
+	width:1000px;
+	left: 50%; 
+	top:123px;
+	margin-left: -470px;
+}
+
+.siteTop {
+	width:100%;
+	height:122px;
+	position:absolute;
+	border:0px solid #F00;
+	overflow: auto;
+    background-image: url(../images/gras-boven.png);
+    layer-background-image: url(../images/gras-boven.png);	
+    background-position: center; 
+}
+
+.siteTop2 {
+	width:100%;
+	height:450px;
+	position:absolute;
+	border:0px solid #F00;
+	overflow: auto;
+    background-image: url(../images/bovenkant-stippen.png);
+    layer-background-image: url(../images/bovenkant-stippen.png);	
+    background-position: center;
+    background-size: 1200px;
+    background-repeat:no-repeat; 
+}
+
+.siteTop3 {
+	width:100%;
+	height:183px;
+	position:absolute;
+	border:0px solid #F00;
+	overflow: auto;
+    background-image: url(../images/bovenkant-illustraties.png);
+    layer-background-image: url(../images/bovenkant-illustraties.png);	
+    background-position: center;
+    background-repeat:no-repeat; 
+}
+
+
+
+
+
+
+
+
+.workLayer {
+	width:760px;
+	left: 50%; 
+	top:180px;
+	position:absolute;
+	margin-left: -380px;
+	border:0px solid #F00;
+}
+
+.menuLayer {
+	width:200px;
+	left: 50%; 
+	top:150px;
+	position:absolute;
+	margin-left: -598px;
+	border:0px solid #F00;
+}
+
+ul.description li { color:white; }
+
+
+.ad1 {
+    width:180px;
+    position:absolute;
+    left: 50%; 
+    margin-left: +410px;
+    top: 205px;
+    border:0px solid #263f24;
+    padding: 0px;
+}
+
+.ad2 {
+    width:180px;
+    position:absolute;
+    left: 50%; 
+    margin-left: +410px;
+    top: 300px;
+    border:0px solid #263f24;
+    padding: 0px;
+}
+
+.ad3 {
+    width:180px;
+    position:absolute;
+    left: 50%; 
+    margin-left: +410px;
+    top: 455px;
+    border:0px solid #263f24;
+    padding: 0px;
+}
+
+.googleLike {
+	width:35px;
+	height:22px;
+	position:absolute;
+	top:10px;
+	left:890px;
+	border:0px solid #F00;
+	overflow: auto;
+}
+
+
+.headerTextAppNameFont{
+ color: #fff;
+ font-size: 20px;
+}
+
+.headerTextTeamNameFont{
+ color: #fff;
+ font-size: 50px;
+}
+
+.headerTextAppNameLoggedOffFont{
+ color: #fff;
+ font-size: 50px;
+}
+
+.teamLayer {
+    width:800px;
+    position:absolute;
+    top:125px;
+    left:50%;
+    margin-left: -405px;    
+    border:0px solid #F00;
+    overflow: auto;
+    text-align:right;
+}
+
+
+.homedescription {
+    padding: 5px;    
+    border:2px solid #000;
+    background-color: #42934c;  
+    overflow: auto;
+	color: #fff;
+}
+
+
+.headerusername { 
+    color: #eaf9c3;
+    font-size: 18px;
+    border:2px solid #263f24;
+    background-color: #42934c;  
+}
+
+
+.userMenu {
+    width:400px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -9px;
+    top: 155px;
+    border:2px solid #263f24;
+    background-color: #42934c;  
+    overflow: no;
+    padding: 0px;
+}
+
+.userMenuClose {
+    width:35px;
+    height:35px;
+    padding: 0px;
+    position:absolute;
+    left: 355px; 
+    top: 5px;
+    border:0px solid #000;
+    overflow: auto;
+    cursor: pointer;
+}
+
+.headerTextTeamname {
+ 	width:800px;
+	height:70px;
+	position:absolute;
+	top:60px;
+	left:50%;
+	padding: 0px;
+	margin-left: -400px;	
+	border:0px solid #F00;
+	overflow: auto;
+    text-align:right;
+    padding-right:50px;
+}
+
+.headerTextAppName {
+	width:800px;
+	height:30px;
+	position:absolute;
+	top:35px;
+	left:50%;
+	padding: 0px;
+	margin-left: -400px;	
+	border:0px solid #F00;
+	overflow: auto;
+    text-align:right;
+    padding-right:50px;
+}
+
+.headerTextAppNameLoggedOff {
+ 	width:800px;
+	height:70px;
+	position:absolute;
+	top:60px;
+	left:50%;
+	padding: 0px;
+	margin-left: -400px;	
+	border:0px solid #F00;
+	overflow: auto;
+    text-align:right;
+    padding-right:50px;
+}
+
+.ditismijnteam {
+    width:260px;
+    height:120px;
+    position:absolute;
+    top:-10px;
+    left:50%;
+    padding: 0px;
+    margin-left: +110px;    
+    border:0px solid #F00;
+    overflow: auto;
+    text-align:right;
+    padding-right:50px;
+}
+
+
+
+
+.popup300Lower {
+    width:300px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -150px;
+    top: 0px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: auto;
+    padding: 0px;
+}
+
+.popup300Close {
+    width:35px;
+    height:35px;
+    padding: 0px;
+    position:absolute;
+    left: 255px; 
+    top: 0px;
+    border:0px solid #000;
+    overflow: no;
+    cursor: pointer;
+}
+
+.popup400 {
+    width:400px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -200px;
+    top: -70px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: no;
+    padding: 0px;
+}
+
+.popup400Close {
+    width:35px;
+    height:35px;
+	padding: 0px;
+	position:absolute;
+	left: 355px; 
+	top: 0px;
+	border:0px solid #000;
+	overflow: auto;
+    cursor: pointer;
+}
+
+.popup600 {
+    width:600px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -300px;
+    top: -70px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: no;
+    padding: 0px;
+}
+
+.popup600Close {
+    width:35px;
+    height:35px;
+    padding: 0px;
+    position:absolute;
+    left: 555px; 
+    top: 0px;
+    border:0px solid #000;
+    overflow: auto;
+    cursor: pointer;
+}
+
+.popup800 {
+    width:800px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -400px;
+    top: -70px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: no;
+    padding: 0px;
+}
+
+.popup800Close {
+	width:35px;
+	height:35px;
+	padding: 0px;
+	position:absolute;
+	left: 755px; 
+	top: 0px;
+	border:0px solid #000;
+	overflow: auto;
+    cursor: pointer;
+}
+
+.popup1000 {
+    width:1000px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -500px;
+    top: -70px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: no;
+    padding: 0px;
+}
+
+.popup1000Close {
+    width:35px;
+    height:35px;
+    padding: 0px;
+    position:absolute;
+    left: 955px; 
+    top: 0px;
+    border:0px solid #000;
+    overflow: auto;
+    cursor: pointer;
+}
+
+
+
+.globalError {
+	width:400px;
+	padding: 0px;
+	position:absolute;
+	left: 50%; 
+	margin-left: -200px;
+	top: 150px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+	overflow: auto;
+}
+
+.globalSuccess {
+    width:400px;
+    padding: 0px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -200px;
+    top: 150px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: auto;
+}
+
+.connectTeam {
+    width:600px;
+    padding: 0px;
+    position:absolute;
+    left: 50%; 
+    margin-left: -300px;
+    top: 150px;
+    border:4px solid #263f24;
+    background-color: #fff;  
+    overflow: auto;
+}
+
+
+
+

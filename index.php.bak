@@ -1,0 +1,383 @@
+<?
+/* Include Files *********************/
+session_start();
+include_once ("database.php");
+include_once ("header.php");
+include_once ("dbcalls.php");
+include_once ("globals.php");
+include_once ("teamsport.php");
+include_once ("request-session.php");
+/*************************************/
+
+header('Expires: ' . gmdate("D, d M Y H:i:s", time() + 1000) . ' GMT');
+header('Cache-Control: Private');
+/************ AUTHENTICATION ROUTINES *****************/
+/**
+ * Checks to see if the user has submitted his
+ * username and password through the login form,
+ * if so, checks authenticity in database and
+ * creates session.
+ */
+if (isset($_POST['sublogin'])) {
+    if (login()){
+        exit();
+    }
+}
+
+/* Sets the value of the logged_in variable, which can be used in your code */
+checkLogin();
+
+// if the given team is anonymous team, the you may enter without loggin in!
+$anonymousTeam = false;
+$anonymousTeamID = -1;
+if (isset($_REQUEST['team'])) {
+    $anonymousTeamID = $_REQUEST['team'];
+    if ($anonymousTeamID==1) $anonymousTeam = true;
+    $anonymousTeam = true;
+}
+globals\setAnonymousLogin($anonymousTeam);
+
+
+if (
+    (getSection() != "home")&&
+    (getSection() != "login")&&
+    (getSection() != "register")&&
+    (getSection() != "wat")&&
+    (getSection() != "openCompetition")&&
+    (getSection() != "searchCompetition")
+    ) {
+    if (!globals\isLoggedIn()) {
+        
+        
+        
+        if (!$anonymousTeam){
+            // save the initial page which was requested
+            if (isset($_REQUEST['team'])) {
+                $_SESSION['requested_team'] = $_REQUEST['team'];
+            }
+            if (isset($_REQUEST['section'])) {
+                $_SESSION['requested_section'] = $_REQUEST['section'];
+            }
+            if (isset($_REQUEST['game'])) {
+                $_SESSION['requested_game'] = $_REQUEST['game'];
+            }
+            // redirect page
+            echo "<meta http-equiv=\"Refresh\" content=\"0;url=index.php?section=login\">";
+            return;
+        }
+    }
+}
+
+
+/************ LOAD INITIAL DATA  *****************/
+$currentUserID = getUserID(); // will be -1 if not found
+if ($anonymousTeam && $currentUserID==-1){
+    $currentUserID = -99;// -99 is the anonymous userID
+}
+$currentUserData = dbcalls\getUserData($currentUserID);
+$currentTeams = dbcalls\loadTeams2($currentUserID,$anonymousTeam,$anonymousTeamID);
+$currentSelectedTeamID = getCurrentTeamID($currentUserID);
+if ($anonymousTeam ){
+    $currentSelectedTeamID = $anonymousTeamID;
+}
+$currentSelectedTeamName = getCurrentTeamName($currentTeams,$currentSelectedTeamID);
+$currentSelectedTeamData = dbcalls\loadTeam($currentSelectedTeamID);
+// Load current team
+$teamData = dbcalls\loadTeam($currentSelectedTeamID);
+
+// Find first upcoming game detauls
+$firstUpcomingData = dbcalls\findFirstUpcomingGame($currentSelectedTeamID );
+
+// Find seasons and current season
+$seasons = dbcalls\loadSeasons($currentSelectedTeamID);
+$rememberredSeason = requestsession\getSessionSeason();
+$defaultSeason = $rememberredSeason; 
+if ($defaultSeason==-1){
+    $defaultSeason = $firstUpcomingData->seasonID;    
+}
+$currentSelectedSeason = getCurrentSeason($seasons, $defaultSeason);
+
+// Find games and current game
+$games = dbcalls\loadGames($currentSelectedSeason);
+$rememberredGame = requestsession\getSessionGame();
+$defaultGame = $rememberredGame; 
+if ($defaultGame==-1){
+    $defaultGame = $firstUpcomingData->gameID;    
+}
+$requestedGame = getRequestedGame();
+if ($requestedGame!=-1){
+    $defaultGame = $requestedGame;    
+}
+
+$currentSelectedGame = getCurrentGame($games, $defaultGame);
+
+$gameData = dbcalls\loadGame($currentSelectedGame);
+
+// Find team members
+$teammembers = dbcalls\loadTeammembers($currentSelectedTeamID);
+
+// Find team members
+$teammembersOfThisUser = dbcalls\loadTeammembersOfUser($currentUserID);
+
+// load listData (only for list page)
+$currentListData = "";
+if (getSection()=="lijstjes") {
+    $currentListData = dbcalls\loadListData($currentSelectedSeason);
+}
+
+// find all managedCompetitions
+$currentMCompetitions = dbcalls\loadMCompetitions($currentUserID,$anonymousTeam,$anonymousTeamID);
+globals\setCompetitionManager(sizeof($currentMCompetitions)>0);
+
+
+
+globals\setCurrentTeamID($currentSelectedTeamID);
+
+/************ START BUILD HTML *****************/
+printHeaderIndex("mijnsportwedstrijden.nl", "mijnsportwedstrijden.nl");
+
+/************ PLACE INITIAL DATA IN JAVASCRIPT *****************/
+?>
+
+
+<script type="text/javascript">
+
+    if(typeof String.prototype.trim !== 'function') {
+      String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g, ''); 
+      }
+    }
+    
+    currentUserID = '<? echo $currentUserID ?>';
+    currentUserData = '<? echo addslashes(json_encode($currentUserData)) ?>';
+    initalTeams = '<? echo addslashes(json_encode($currentTeams)) ?>';
+    initialSelectedTeam = '<? echo addslashes(json_encode($teamData)) ?>';
+    initialSelectedTeamID = '<? echo $currentSelectedTeamID ?>';
+    initialSelectedTeamName = '<? echo addslashes($currentSelectedTeamName) ?>';
+    initialSelectedTeamData = '<? echo addslashes(json_encode($currentSelectedTeamData)) ?>';
+    initialSeasons = '<? echo addslashes(json_encode($seasons)) ?>  ';
+    initialSelectedSeason = '<? echo addslashes($currentSelectedSeason) ?>';
+    initialGames = '<? echo addslashes(json_encode($games)) ?>';
+    initialSelectedGame = '<? echo addslashes($currentSelectedGame) ?>';
+    initialSelectedGameData = '<? echo addslashes(json_encode($gameData)) ?>';
+    initialTeammembers = '<? echo addslashes(json_encode($teammembers)) ?>'
+    teammembersOfThisUser = '<? echo addslashes(json_encode($teammembersOfThisUser)) ?>'
+    initialMCompetitions = '<? echo addslashes(json_encode($currentMCompetitions)) ?>'
+    
+    
+    initialListData = '<? echo addslashes(json_encode($currentListData)) ?>';
+
+    currentSection = "<? echo getCurrentSection();?>";
+    ts_setCurrentSection(currentSection);
+</script>
+
+
+<?
+
+
+if (getSection()=="home") {
+include("index-home.php");
+printHome();
+}
+
+if (getSection()=="") {
+include("index-wedstrijd.php");
+printTeamWedstrijd();
+}
+
+if (getSection()=="login") {
+include("index-login.php");
+printLogin();
+}
+
+if (getSection()=="register") {
+include("index-register.php");
+printRegister();
+}
+
+if (getSection()=="wedstrijd") {
+include("index-wedstrijd.php");
+printTeamWedstrijd();
+}
+
+if (getSection()=="teamleden") {
+include("index-teamleden.php");
+printTeamleden();
+}
+
+if (getSection()=="uitslagen") {
+include("index-uitslagen.php");
+printUitslagen();
+}
+
+if (getSection()=="programma") {
+include("index-programma.php");
+printProgramma();
+}
+
+if (getSection()=="seizoenen") {
+include("index-seizoenen.php");
+printSeizoenen();
+}
+
+if (getSection()=="editlists") {
+include("index-editlists.php");
+printLists();
+}
+
+if (getSection()=="berichten") {
+include("index-berichten.php");
+printBerichten();
+}
+
+if (getSection()=="lijstjes") {
+include("index-report.php");
+printReports();
+}
+
+if (getSection()=="instellingen") {
+include("index-settings.php");
+printSettings();
+}
+
+if (getSection()=="instellingenuser") {
+include("index-usersettings.php");
+printUserSettings();
+}
+
+if (getSection()=="wat") {
+include("index-wat.php");
+printWat();
+}
+
+if (getSection()=="searchCompetition") {
+include("index-searchcompetition.php");
+printSearch();
+}
+
+if (getSection()=="openCompetition") {
+include("index-opencompetition.php");
+printOpen();
+}
+
+if (getSection()=="mijncompetities") {
+include("index-mcompetition.php");
+printCompetition();
+}
+
+
+
+
+
+
+?>
+
+
+
+<div class="popup400" id="newMCompetition" style="display:none">
+    <div class="popup400Close" >
+        <img src="../images/close.png"  onClick="javascript:document.getElementById('newMCompetition').style.display = 'none'">
+    </div>        
+    <table width=100% border=0 bgcolor=#263f24 cellspacing='0'>
+        <tr>
+            <td align=middle height=30>
+                <big><b><font color=white>Beheer eigen competitie</font></b></big>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table border=0 width=100% cellspacing='0'>
+        <tr>
+            <td align=center>
+            <table border=0 cellspacing='0'>
+                <tr>
+                    <td><b>Organisatie</b></td>
+                    <td width=20 align=center>:</td>
+                    <td>
+                    <input id="newMCompOrganisation" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Seizoen</b></td>
+                    <td width=20 align=center>:</td>
+                    <td>
+                    <input id="newMCompSeason" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Competition</b></td>
+                    <td width=20 align=center>:</td>
+                    <td>
+                    <input id="newMCompCompetition" type="text" />
+                    </td>
+                </tr>
+            </table>
+            <br><br>
+            <a href="#" onclick="javascript:ts_createNewMCompetition()">Maak aan</a> &nbsp;&nbsp; 
+            </td>
+        </tr>
+    </table>
+    <br><br>
+</div>
+
+
+<div class="popup400" id="newTeam" style="display:none">
+    <div class="popup400Close" >
+        <img src="../images/close.png"  onClick="javascript:document.getElementById('newTeam').style.display = 'none'">
+    </div>        
+    <table width=100% border=0 bgcolor=#263f24 cellspacing='0'>
+        <tr>
+            <td align=middle height=30>
+                <big><b><font color=white>Nieuw team aanmaken</font></b></big>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table border=0 width=100% cellspacing='0'>
+        <tr>
+            <td align=center>
+            <table border=0 cellspacing='0'>
+                <tr>
+                    <td><b>Teamnaam</b></td>
+                    <td width=20 align=center>:</td>
+                    <td>
+                    <input id="newTeamName" type="text" />
+                    </td>
+                </tr>
+            </table>
+            <br><br>
+            <a href="#" onclick="javascript:ts_createNewTeam()">Maak aan</a> &nbsp;&nbsp; 
+            </td>
+        </tr>
+    </table>
+    <br><br>
+</div>
+
+
+<script language="JavaScript" type="text/JavaScript">
+
+</script>
+<!-- ENABLE DIT VOOR GOOGLE +1 icon!
+<script type="text/javascript">
+window.___gcfg = {lang: 'nl'};
+
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+-->
+<?
+printFooter();
+
+
+if(globals\hasLoginError()){
+?>
+<script language="JavaScript" type="text/JavaScript">
+    ts_showGlobalError("Login","<? echo globals\getLoginError();?>");</script>
+<?
+}
+
+
+?>

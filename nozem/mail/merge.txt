@@ -1,0 +1,35 @@
+
+NEWEVENT
+date:Zaterdag 9 januari
+event:NIEUWJAARSBAL: HOWLING HURRICANES + FRIENDS en DJ
+afterparty: 
+opening:Deur open 20.30 uur | Aanvang 21.30 uur | De Nozem | Voorverkoop via ticketshop &euro;10,- (excl. 1,50 servicek.) | Deurverkoop &euro;15 
+reservation:no
+phppage:160109
+
+
+NEWEVENT
+date:Zaterdag 23 januari
+event:LICHTZINNIG
+afterparty: (uitverkocht)
+opening:Zaal open 21.30 uur | Aanvang 21.30 uur | De Nozem | Uitverkocht 
+reservation:no
+phppage:160123
+
+NEWEVENT
+date:Vrijdag 29 en zaterdag 30 januari
+event:BINTANGS 55 JAAR
+afterparty: 
+opening:Deur open 20.00 uur | Aanvang 21.15 uur | De Nozem | entree vrijdag &euro;20 incl 4 consumptiemunten | entree zaterdag &euro;25 incl 4 consumptiemunten | passe-partout entree &euro;40 incl beide avonden 4 consumptiemunten 
+reservation:no
+phppage:160130
+
+NEWEVENT
+date:Zaterdag 6 februari
+event:TRIBUTENIGHT: MUSEST, CRAZY/DAISY en THE RELIC 
+afterparty: 
+opening:Zaal open 20.00 uur | Aanvang 21.00 uur | De Nozem | Voorverkoop &euro;10 | Deurverkoop &euro;15 
+reservation:no
+phppage:160206
+
+							

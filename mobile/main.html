@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="app.css"/>
+
+<title>mijn sportwedstrijden</title>
+
+<script type="application/javascript" src="iscroll.js"></script>
+<script type="application/javascript" src="inappbilling.js"></script>
+<script type="application/javascript" src="sportwedstrijdenPlugin.js"></script>
+
+<script type="text/javascript">
+
+var myScroll;
+function loaded2() {
+	myScroll = new iScroll('wrapper');
+}
+
+
+/* ---------- */
+
+function loaded() {
+	pullDownEl = document.getElementById('pullDown');
+	pullDownOffset = pullDownEl.offsetHeight;
+	
+	
+	myScroll = new iScroll('wrapper', {
+		useTransition: true,
+		topOffset: pullDownOffset,
+		onRefresh: function () {
+			if (pullDownEl.className.match('loading')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Sleep naar beneden om te verversen...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y > 5 && !pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'flip';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Laat los om te verversen...';
+				this.minScrollY = 0;
+			} else if (this.y < 5 && pullDownEl.className.match('flip')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Sleep naar beneden om te verversen...';
+				this.minScrollY = -pullDownOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'loading';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Loading...';				
+				pullDownAction();	// Execute custom function (ajax call?)
+			}
+		}	
+	});
+	
+	
+	
+	
+	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+}
+
+
+
+
+function pullDownAction () {
+	myScroll.refresh();		
+	refresh();
+}
+
+
+/* ---------- */
+
+
+document.addEventListener('touchmove', function (e) {
+    if (page=="editgame") return;
+    if (page=="addmessage") return;
+    if (page=="login") return;
+    if (page=="settings") return;
+    if (page=="selectTeam") return;
+    if (page=="premium") return;
+    if (page=="depricated") return;
+	e.preventDefault(); 
+	
+	}, false);
+
+document.addEventListener('DOMContentLoaded', loaded, false);
+
+</script>
+
+
+	<script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", onDeviceReady, false);
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+
+
+    function onDeviceReady() {
+	   phonegapReady();
+    }
+    </script>
+
+    <script src="header.js"></script>
+    <script src="util.js"></script>
+    <script src="md5.js"></script>
+    <script src="data.js"></script>
+    <script src="sportwedstrijden.js"></script>
+    <script src="sportwedstrijdendata.js"></script>
+    <script src="platform.js"></script>
+    <script src="version.js"></script>
+
+</head>
+    <BODY onresize="onPageResize()" onload="initialize()">
+    
+
+<!--------------------------------------------------------------------------------->
+
+<div id=headerTop style="display:none" class="headerLayer" >
+	<p id=headerText class=headerText onclick="openSelectTeam()">
+	</p>
+</div>
+
+    <div id=headerTopButtons style="display:none" class="headerTopButtonsLayer" >
+		<img id=settingsButton src="settings.png" onclick="openSettings()">	
+		&nbsp;
+		<img id=refreshButton src="refresh.png" onclick="refresh()">
+	</div>
+
+
+<div id=headerIcons style="display:none" class="headerIconsLayer" >
+	
+	<div id=mainButtons style="display:none">
+		<table width=100%><tr><td align=center>
+			<table>
+				<tr height=30px>
+					<td id=buttonProg width=100px class=mainbutton onclick="selectProg()" >
+						&nbsp;programma&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td id=buttonUitsl width=100px class=mainbutton onclick="selectUitsl()" >
+						&nbsp;uitslagen&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td id=buttonStat width=100px class=mainbutton onclick="selectStat()" >
+						&nbsp;statistieken&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td id=buttonStand width=100px class=mainbutton onclick="selectStand()" >
+						&nbsp;stand&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+		
+		</td></tr></table>
+		
+	</div>
+	<div id=gameButtons style="display:none">
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td id=gameButtonReturn width=100px class=mainbutton onclick="hideGame()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td id=gameButtonEdit width=100px class=mainbutton onclick="openEditGame()" >
+						&nbsp;bewerk&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td id=gameButtonMessage width=100px class=mainbutton onclick="openAddMessage()" >
+						&nbsp;+bericht&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+		
+
+			<table>
+				<tr height=30px>
+					<td id=gameButtonPrev width=40px class=mainbutton onclick="gamePrev()" >
+						<img width=30px src="prevGame.png" >
+					</td>
+					<td id=gameButtonNext width=40px class=mainbutton onclick="gameNext()" >
+						<img width=30px src="nextGame.png" >
+					</td>
+				</tr>
+			</table>
+
+
+		</td></tr></table>
+		
+	</div>
+	<div id=stat2Buttons style="display:none">
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="selectStat()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=10px ></td>
+					<td  >
+						<p id='listNameHeader'></p>
+					</td>
+				</tr>
+			</table>
+		</td></tr></table>
+		
+	</div>	
+	
+	<div id=mgamesButtons style="display:none">
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hideMGames()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=10px ></td>
+					<td  >
+						<p id='mgameName'></p>
+					</td>
+				</tr>
+			</table>
+		</td></tr></table>
+		
+	</div>	
+		
+</div>
+
+<div id=workArea style="display:" >
+	<div id="wrapper" >
+		<div id="scroller"  >
+			<div id="pullDown" >
+				<table width=100%>
+					<tr>
+						<td align=center>
+							<p class="pullDownIcon" id="pullDownIcon"></p><span class="pullDownLabel">Sleep naar beneden om te verversen...</span>
+						</td>
+					</tr>
+				</table>
+				
+			</div>			
+			<ul  style="display:none" width=100%>
+				<li>
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p id="logpage"  style="display:none" ></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100% ' id=pagewidth_log></div></td></tr></table>
+				</li>
+			</ul>
+	
+			<ul id=progpage style="display:none" class="progLayer" >
+				<li >
+				<!-- voor breedte bepaling--><table ><tr><td>
+					<p id=progData></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=left colspan=99 id=pagewidth_prog></td></tr></table>
+				</li>
+			</ul>
+			
+			<ul id=uitslpage style="display:none" class="uitslLayer" >
+				<li>
+				<!-- voor breedte bepaling--><table><tr><td align=center>
+					<p id=uitslData></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=left colspan=99 id=pagewidth_uitsl></td></tr></table>
+				</li>
+			</ul>
+			<ul id=statpage style="display:none" class="statLayer" >
+				<li>
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p id=statData></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100% ' id=pagewidth_stat></div></td></tr></table>
+
+				</li>
+			</ul>
+			<ul id=stat2page style="display:none" class="stat2Layer" >
+				<li>
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p id=stat2Data></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100% ' id=pagewidth_stat2></div></td></tr></table>
+				</li>
+			</ul>
+			<ul id=standpage style="display:none" class="standLayer" >
+				<li>
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p id=standData></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100% ' id=pagewidth_stand></div></td></tr></table>
+				</li>
+			</ul>
+	
+			<ul id=mgamespage style="display:none" class="mgamesLayer" >
+				<li>
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p id=mgamesData></p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100% ' id=pagewidth_mgames></div></td></tr></table>
+				</li>
+			</ul>
+	
+			<ul id=gamepage style="display:none" class="gameLayer" >
+			<li>
+				<!-- voor breedte bepaling--><table><tr><td>
+					<p id=gameData>bla</p>
+				<!-- voor breedte bepaling--></td></tr><tr><td align=right colspan=99><div style='width:100%;' id=pagewidth_game></div></td></tr></table>
+				</li>
+			</ul>
+	
+		</div>
+	</div>
+</div>
+
+</div> <!-- work area layer !-->
+
+<div id=errorpage style="display:none" class="errorLayer" >
+	<br>
+	<p id=errorText></p>
+	<br>
+	<br>
+	<a href=# onClick="hideGlobalError()" ><font color=white>[sluiten]</font></a>
+	<br>	
+</div>
+
+<div id=noPropage style="display:none" class="noProLayer2" >
+	<div id=headerNoProTop class="headerLayer" >
+		<table><tr height=5px><td></td></tr></table>
+		<p class=headerText align=center>Foutmelding</p>
+	</div>
+	<div id=headerNoProIcons class="headerIconsLayer" >
+		<div>
+			<table width=100%><tr><td align=left>
+				<table>
+					<tr height=30px>
+						<td width=100px class=mainbutton onclick="hideNoProError()" >
+							&nbsp;terug&nbsp;
+						</td>
+						<td width=1px class=mainbuttonseparator></td>
+						<td width=10px ></td>
+						<td>
+						</td>
+					</tr>
+				</table>
+			</td></tr></table>
+		</div>	
+		
+		<br>
+		<p id="noProMessage"></p>		
+		 
+	</div>	
+</div>
+
+
+<div id=addMessagepage style="display:none" class="addMessageLayer" >
+
+	<div id=headerTopAddMessage class="headerLayer" >
+		<p id=headerText class=headerText width=100% align=center>
+			Voeg bericht toe
+		</p>
+	</div>
+	<div id=headerIconsAddMessage class="headerIconsLayer" >
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hideAddMessage()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+			<table>
+				<tr height=30px>
+					<td width=1px class=mainbuttonseparator></td>
+					<td class=mainbutton onclick="saveAddMessage()" >
+						&nbsp;bericht toevoegen&nbsp;
+					</td>
+				</tr>
+			</table>
+
+
+		</td></tr></table>
+	</div>	
+	<div id="addMessagePageBody" width=100% class="absoluteLayerLayer">	
+		<table width=100%>
+			<tr >
+				<td align=center>	
+					<br>
+					Nieuw bericht:<br>
+					<textarea rows="15" cols="60" id=newGameMessageTextArea></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+
+
+<div id=editgamepage style="display:none" class="editgameLayer" >
+
+	<div id=headerTopEditGame class="headerLayer" >
+		<p id=headerText class=headerText width=100% align=center>
+			Bewerk wedstrijd
+		</p>
+	</div>
+	<div id=headerIconsEditGame class="headerIconsLayer" >
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hideEditGame()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+			<table>
+				<tr height=30px>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=100px class=mainbutton onclick="saveEditGame()" >
+						&nbsp;opslaan&nbsp;
+					</td>
+				</tr>
+			</table>
+
+
+		</td></tr></table>
+	</div>	
+	<div id="editGamePageBody" width=100% class="absoluteLayerLayer">	
+		<table width=100%>
+			<tr >
+				<td align=center>	
+					<p id=editgameData> </p>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+<div id=settingspage style="display:none" class="settingsLayer" >
+
+	<div id=headerTopSettings class="headerLayer" >
+		<p id=headerText class=headerText width=100% align=center>
+			Instellingen voor <span id=currentUsername></span>
+		</p>
+	</div>
+	<div id=headerIconsSettings class="headerIconsLayer" >
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hideSettings()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+			<table>
+				<tr height=30px>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=100px class=mainbutton onclick="logoff()" >
+						&nbsp;logoff&nbsp;
+					</td>
+				</tr>
+			</table>
+		</td></tr></table>
+	</div>	
+	<div id="settingsPageBody" width=100% class="absoluteLayerLayer">
+		<table width=100%>
+			<tr >
+				<td align=center>
+						<table width=100%>
+							<tr style="display:none" >
+								<td colspan=99>
+									<b>Scherm resolutie:</b>
+								</td>
+							</tr>
+							<tr style="display:none" >
+								<td colspan=99>
+									<p id="pagesize"></p><br>
+								</td>
+							</tr>
+						</table>
+				</td>
+			</tr>
+		</table>
+		<div id="paymentLayer" style="display:">
+			<br>
+			<table width=100%><tr><td align=center>
+			
+				<table>
+					<tr>
+						<td align=right>
+							Premium account
+						</td>
+						<td>
+							&nbsp;:&nbsp;
+						</td>
+						<td id="hasPremiumAccount" align=left>
+							ja / nee
+						</td>
+						<td>
+						</td>
+					</tr>
+					<tr>
+						<td align=right>
+							Einde premium account
+						</td>
+						<td>
+							&nbsp;:&nbsp;
+						</td>
+						<td id="endDatePro" align=left>
+						</td>
+						<td>
+							<p id = "wordtPremiumKnopAndroid" onclick="openPremium()" class="knop">Wordt premium...</p>
+							<p id = "verlengPremiumKnopAndroid" onclick="openPremium()" class="knop">Verleng premium...</p>
+						</td>
+					</tr>
+					</table>
+							<p >
+								<br><br>
+								Met een premium account is het mogelijk de uitslagen, de statistieken, de standen, de wedstrijden van de tegenstanders te bekijken. Tevens is het mogelijk de wedstrijden te bewerken (mits bevoegd door de teamleider) en berichten toe te voegen.
+								Een premium account kost 0,7 euro per 3 maanden of 1,99 euro per jaar. 
+							</p>
+							<p id = "wordtPremiumBrowser">
+								<br><br>
+								Neem hiervoor contact op met <a href=mailto:registratie@mijnsportwedstrijden.nl>registratie@mijnsportwedstrijden.nl</a>	
+							</p>
+						
+				</td></tr></table>
+			
+			<br>
+		</div>	
+			 
+	</div>
+	
+</div>
+
+
+
+
+
+<div id=selectTeampage style="display:none" class="settingsLayer" >
+
+	<div id=headerTopSelectTeam class="headerLayer" >
+		<p id=headerText class=headerText width=100% align=center>
+			Selecteer team
+		</p>
+	</div>
+	<div id=headerIconsSelectTeam class="headerIconsLayer" >
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hideSelectTeam()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+			<table>
+				<tr height=30px>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=100px class=mainbutton  >
+					</td>
+				</tr>
+			</table>
+		</td></tr></table>
+	</div>	
+	<div id="selectTeamPageBody" width=100% class="absoluteLayerLayer">
+		<table width=100%>
+			<tr >
+				<td align=center>
+						<table width=100%>
+							<tr height=40px>
+								<td align=center>
+									<b>Welke wedstrijden wil je zien?</b>
+								</td>
+							</tr>
+							<tr>
+								<td align=center colspan=99>
+									<table width=100%>
+										<tr>
+											<td width=100% bgcolor="#0f0">
+												<p id=selectCompetitionsText1 ></p>
+											</td>	
+										</tr>
+									</table>
+								</td>
+							</tr>
+							
+						</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+<div id=premiumpage style="display:none" class="settingsLayer" >
+
+	<div id=headerTopPremium class="headerLayer" >
+		<p id=headerText class=headerText width=100% align=center>
+			Premium Account
+		</p>
+	</div>
+	<div id=headerIconsPremium class="headerIconsLayer" >
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hidePremium()" >
+						&nbsp;terug&nbsp;
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+			<table>
+				<tr height=30px>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=100px class=mainbutton  >
+					</td>
+				</tr>
+			</table>
+		</td></tr></table>
+	</div>	
+	<div id="premiumPageBody" width=100% class="absoluteLayerLayer">
+		<table width=100%>
+			<tr >
+				<td align=center>
+						<table >
+							<tr height=40px>
+								<td align=center>
+									<b>Premium Account</b>
+								</td>
+								</tr>
+								<tr>
+								<td align=center>
+									<br>
+									<p onclick="startBuyMonth()" class="knop">Koop 3 maanden premium account</p>
+									<br>
+									<p onclick="startBuyYear()" class="knop">Koop 1 jaar premium account</p>
+									<br>
+								</td>
+
+							</tr>
+							<tr>
+						</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+<div id=depricatedpage style="display:none" class="settingsLayer" >
+
+	<div id=headerTopDepricated class="headerLayer" >
+		<p id=headerText class=headerText width=100% align=center>
+			Update vereist
+		</p>
+	</div>
+	<div id=headerIconsDepricated class="headerIconsLayer" >
+		<table width=100%><tr><td align=left>
+			<table>
+				<tr height=30px>
+					<td width=100px class=mainbutton onclick="hideSelectTeam()" >
+					</td>
+					<td width=1px class=mainbuttonseparator></td>
+				</tr>
+			</table>
+			
+			</td><td align=right>
+			<table>
+				<tr height=30px>
+					<td width=1px class=mainbuttonseparator></td>
+					<td width=100px class=mainbutton  >
+					</td>
+				</tr>
+			</table>
+		</td></tr></table>
+	</div>	
+	<div id="depricatedPageBody" width=100% class="absoluteLayerLayer">
+		<table width=100%>
+			<tr >
+				<td align=center>
+						<table width=100%>
+							<tr height=40px>
+								<td align=center>
+									<b>Deze versie van de app wordt niet meer ondersteund.</b><br>
+								</td>
+							</tr>
+							<tr>
+								<td align=center colspan=99>
+									<table >
+										<tr>
+											<td width=100% >
+
+												<p onclick="document.location.href='market://details?id=com.vdzon.mijnsportwedstrijden.app.nl'" 
+												class="knop">Download de nieuwe versie
+												</p>
+											</td>	
+										</tr>
+									</table>
+								</td>
+							</tr>
+							
+						</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+<div id=loginpage style="display:none" class="loginLayer" >
+	<div id=headerTopLogin class="headerLayer" >
+		<table><tr height=5px><td></td></tr></table>
+		<p id=headerText class=headerText width=100% align=center valign=center >
+			Inloggen op mijnsportwedstrijden.nl
+		</p>
+	</div>
+	<div id="loginPageBody" width=100% class="absoluteLayerLayer">
+		<table width=100%>
+			<tr >
+				<td align=center>	
+				
+					<table >
+						<tr height=20>
+							<td colspan=3>	
+								<br>
+							</td>
+									
+						</tr>	
+						<tr>
+							<td colspan=3>
+								<p id="loginError"></p>
+							</td>	
+						</tr>
+						<tr>
+							<td align=right>	
+								Gebruikersnaam
+							</td>
+				
+							<td width=10px>	
+								&nbsp;&nbsp;:&nbsp;&nbsp;
+							</td>	
+							<td align=left>	
+								<input type="text" size="15" value="" id=usernameField>
+							</td>	
+						</tr>	
+				
+				
+						<tr height=20>
+							<td colspan=99>	
+								&nbsp;
+							</td>
+						</tr>	
+				
+				
+						<tr>
+							<td align=right>	
+								Wachtwoord
+							</td>
+				
+							<td>	
+								&nbsp;&nbsp;:&nbsp;&nbsp;
+							</td>	
+							<td align=left>	
+								<input type="password" size="15" value="" id=passwdField>
+							</td>	
+						</tr>	
+				
+						<tr height=20>
+							<td colspan=99>	
+								&nbsp;
+							</td>
+						</tr>	
+				
+						<tr>
+							<td colspan=3>
+								<img src="login.png" onclick="login()">
+							</td>	
+						</tr>
+						
+						<tr height=20>
+							<td colspan=99>	
+								&nbsp;
+							</td>
+						</tr>	
+				
+						<tr>
+							<td colspan=3 align=center>
+								Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+								Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+								<br>
+								Heb je nog geen account en wil je weten hoe het werkt? Log dan in als onze demo gebruiker:<br>
+								<table><tr><td>
+								<div align=left>
+								gebruikersnaam: demo<br>
+								wachtwoord: demo
+								</td></tr></table>
+							</td>	
+						</tr>
+					</table>	
+				</td>
+			</tr>	
+		</table>
+	</div>
+	
+</div>
+
+
+
+
+</body>
+</html>

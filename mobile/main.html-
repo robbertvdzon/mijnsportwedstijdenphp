@@ -1,0 +1,311 @@
+<html>
+	<link rel="stylesheet" href="app.css"/>
+
+	<script type="text/javascript" charset="utf-8" src="cordova-1.9.0.js"></script>
+	<script type="application/javascript" src="iscroll.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", onDeviceReady, false);
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	document.addEventListener('DOMContentLoaded', loaded, false);    
+    function onDeviceReady() {
+	   phonegapReady();
+    }
+	
+	var myScroll;
+	function loaded() {
+		myScroll = new iScroll('wrapper');
+	}
+    </script>
+
+    <script src="header.js"></script>
+    <script src="util.js"></script>
+    <script src="md5.js"></script>
+    <script src="data.js"></script>
+    <script src="sportwedstrijden.js"></script>
+    <script src="sportwedstrijdendata.js"></script>
+
+    <BODY onresize="onPageResize()" onload="initialize()">
+    
+
+<!--------------------------------------------------------------------------------->
+
+<div id=headerTop style="display:none" class="headerLayer" >
+	<p id=headerText onclick="openSettings()">
+	</p>
+</div>
+
+<div id=headerTopButtons style="display:" class="headerTopButtonsLayer" >
+		<img id=settingsButton src="arrowdown.png" onclick="openSettings()">	
+		<img id=refreshButton src="refresh.png" onclick="refresh()">    
+<!--		<img id=refreshButton src="refresh.png" onclick="backButtonPressed()"> -->
+</div>
+
+
+<div id=headerIcons style="display:none" class="headerIconsLayer" >
+		<img id=buttonProg src="progA.png" onclick="selectProg()" >	
+		<img id=buttonUitsl src="uitslA.png" onclick="selectUitsl()">	
+		<img id=buttonStat src="statA.png" onclick="selectStat()">	
+		<img id=buttonStand src="standA.png" onclick="selectStand()">	
+</div>
+
+<div id=workArea style="display:none" class="workAreaLayer" >
+<p id="logpage"  style="display:none" ></p>
+
+<div id=progpage style="display:none" class="progLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<p id=progData></p>
+	</div>
+</div>
+<div id=uitslpage style="display:none" class="uitslLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<p id=uitslData></p>
+	</div>
+</div>
+<div id=statpage style="display:none" class="statLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<p id=statData></p>
+	</div>
+</div>
+<div id=stat2page style="display:none" class="stat2Layer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<p id=stat2Data></p>
+	</div>
+</div>
+<div id=standpage style="display:none" class="standLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<p id=standData></p>
+	</div>
+
+</div>
+<div id=mgamespage style="display:none" class="mgamesLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<img id=gameButtonReturn width=50px src="return.png" onclick="hideMGames()" >	
+		<p id=mgamesData></p>
+	</div>
+
+</div>
+<div id=gamepage style="display:none" class="gameLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<table>
+			<tr>
+				<td width=60px>
+					<img id=gameButtonReturn width=50px src="return.png" onclick="hideGame()" >	
+				</td>
+				<td width=60px>
+					<img id=gameButtonPrev width=50px src="prevGame.png" onclick="gamePrev()" >	
+				</td>
+				<td width=60px>
+					<img id=gameButtonNext width=50px src="nextGame.png" onclick="gameNext()" >	
+				</td>
+				<td width=60px>
+					<img id=gameButtonEdit width=50px src="edit.png" onclick="openEditGame()" >	
+				</td>
+			</tr>
+		</table>
+		
+		<p id=gameData>bla</p>
+	</div>
+</div>
+<div id=editgamepage style="display:none" class="editgameLayer" >
+<div id="wrapper">
+	<div id="scroller">
+		<ul id="thelist">
+			<li>
+		asdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasd
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		</li>
+			<li>
+		asdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasd
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		</li>
+			<li>
+		asdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasdasdasdlkasdasdasd
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>aa<br>	
+		</li>
+		</ul>
+		<!--	
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+	-->
+		<!--	
+	</div>
+	-->
+	sdfsdfsd<br>adas
+	</div>
+</div>	
+
+		<p id=editgameData>bla</p>
+		<img id=gameButtonEdit width=50px src="edit.png" onclick="saveEditGame()" >	
+		<img id=gameButtonEdit width=50px src="edit.png" onclick="hideEditGame()" >	
+</div>
+<div id=loginpage style="display:none" class="loginLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+	<p align=center>	
+	<table>
+		<tr height=20>
+			<td colspan=99>	
+				&nbsp;
+			</td>
+		</tr>	
+		<tr>
+			<td colspan=99>
+				<p id="loginError"></p>
+			</td>	
+		</tr>
+		<tr>
+			<td>	
+				Gebruikersnaam
+			</td>
+
+			</td>	
+			<td>	
+				&nbsp;&nbsp;:&nbsp;&nbsp;
+			</td>	
+			<td>	
+				<input type="text" size="25" value="" id=usernameField>
+			</td>	
+		</tr>	
+
+
+		<tr height=20>
+			<td colspan=99>	
+				&nbsp;
+			</td>
+		</tr>	
+
+
+		<tr>
+			<td>	
+				Wachtwoord
+			</td>
+
+			</td>	
+			<td>	
+				&nbsp;&nbsp;:&nbsp;&nbsp;
+			</td>	
+			<td>	
+				<input type="password" size="25" value="" id=passwdField>
+			</td>	
+		</tr>	
+
+		<tr height=20>
+			<td colspan=99>	
+				&nbsp;
+			</td>
+		</tr>	
+
+		<tr>
+			<td colspan=99>
+				<img src="login.png" width=70px onclick="login()">
+			</td>	
+		</tr>
+		
+		<tr height=20>
+			<td colspan=99>	
+				&nbsp;
+			</td>
+		</tr>	
+
+		<tr>
+			<td colspan=99 align=left>
+				Voor het gebruik van de 'mijnsportwedstrijden' app is een account vereist.<br>
+				Dit account is aan te maken op <a href=http://www.mijnsportwedstrijden.nl target=_blank>www.mijnsportwedstrijden.nl</a><br>
+				<br>
+			</td>	
+		</tr>
+		
+		
+		
+	</table>	
+	</p>
+	</div>
+</div>
+
+<div id=settingspage style="display:none" class="settingsLayer" >
+	<div style='overflow-x:scroll;overflow-y:hidden;width:100%;'>
+		<table>
+			<tr style="display:none" >
+				<td colspan=99>
+					<b>Scherm resolutie:</b>
+				</td>
+			</tr>
+			<tr style="display:none" >
+				<td colspan=99>
+					<p id="pagesize"></p><br>
+				</td>
+			</tr>
+			<tr>
+				<td align=left>
+					<b>Kies competities:</b>
+				</td>
+			</tr>
+			<tr>
+				<td align=center>
+					<table>
+						<tr>
+							<td align=left>
+								<p id=selectCompetitionsText1></p>
+							</td>	
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			<tr>
+				<td  align=left>
+					<b>Gebruiker:</b>
+				</td>
+			</tr>
+			<tr>
+				<table>
+					<tr>
+        				<td align=left width=20>&nbsp;</td>
+						<td align=left>
+							<p id=currentUsername></p>
+						</td>
+						<td>
+							&nbsp;&nbsp;&nbsp;<a href=# onClick="logoff()" >[logoff]</a>
+						</td>	
+						<td colspan=99>
+						</td>	
+					</tr>
+				</table>
+			</tr>
+			
+		</table>
+	
+		<br>
+		<img src="cancelButton.png" width=150px onclick="hideSettings()" >
+		<br>	
+	</div>
+</div>
+
+</div> <!-- work area layer !-->
+
+<div id=errorpage style="display:none" class="errorLayer" >
+	<br>
+	<p id=errorText></p>
+	<br>
+	<br>
+	<a href=# onClick="hideGlobalError()" >[close]</a>
+	<br>
+	
+</div>
+
+
+
+
+</body>
+</html>
