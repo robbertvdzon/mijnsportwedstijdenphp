@@ -6,7 +6,7 @@
 error_reporting(0);
 ini_set("display_errors", 0);
 
-$conn=mysql_connect("db", "root", "my-secret-pw");
+$conn=mysql_connect("db", "root", "hl7Yh875doida2Jy72ndsa");
 mysql_select_db('teamsport_app_n', $conn) or die(mysql_error());
 
 
