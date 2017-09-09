@@ -30,9 +30,9 @@ global $allowAdminAccess4;
 global $adminpasswd;
 
 $allowAdminAccess1 = "82.161.244.200"; // huis
-$allowAdminAccess2 = "82.95.252.170"; // huis
+$allowAdminAccess2 = "149.210.235.58"; // huis
 $allowAdminAccess3 = "127.0.0.1" ; // lokaal
-$allowAdminAccess4 = "192.168.178.29"; // laptop
+$allowAdminAccess4 = "172.17.0.1"; // docker
 $adminpasswd = "admindax";
 
 /**
