@@ -1494,6 +1494,68 @@ function loadTeammembers($teamID) {
 
 /**************************************************
  */
+function loadTeammembersNotDeleted($teamID) {
+    global $conn;
+    $array = array();
+    $query = "SELECT * FROM teammember,users where teammember.teamID='" . $teamID . "' and teammember.userID=users.id and teammember.deleted=false";
+    $result = mysql_query($query, $conn);
+    if (mysql_errno()) {
+        throw new \Exception(mysql_error());
+    }
+    $num = mysql_numrows($result);
+    $i = 0;
+    while ($i < $num) {
+        $item = new \stdClass();
+        $item -> id = mysql_result($result, $i, "teammember.id");
+        $item -> userID = mysql_result($result, $i, "teammember.userID");
+        $item -> nickname = mysql_result($result, $i, "teammember.nickname");
+        $item -> admin = mysql_result($result, $i, "teammember.admin");
+        $item -> deleted = 1==mysql_result($result, $i, "teammember.deleted");
+        $item -> supporter = 1==mysql_result($result, $i, "teammember.supporter");
+        $item -> invaller = 1==mysql_result($result, $i, "teammember.invaller");
+        $item -> invitationID = mysql_result($result, $i, "teammember.invitationID");
+        $item -> invitationEmail = mysql_result($result, $i, "teammember.invitationEmail");
+        $item -> invitationDate = mysql_result($result, $i, "teammember.invitationDate");
+        $item -> acceptEmail = mysql_result($result, $i, "teammember.acceptEmail");
+        $item -> email = mysql_result($result, $i, "users.email");
+        $item -> phonenumber = mysql_result($result, $i, "users.phonenumber");
+        if ($item -> email==null) $item -> email = "";
+        if ($item -> phonenumber==null) $item -> phonenumber = "";
+        $array[] = $item;
+        $i++;
+    }
+
+    //also return all users that are invited and have no user yet
+    $query = "SELECT * FROM teammember where teammember.teamID='" . $teamID . "' and (teammember.userID is NULL || teammember.userID = 0)";
+    $result = mysql_query($query, $conn);
+    if (mysql_errno()) {
+        throw new \Exception(mysql_error());
+    }
+    $num = mysql_numrows($result);
+    $i = 0;
+    while ($i < $num) {
+        $item = new \stdClass();
+        $item -> id = mysql_result($result, $i, "teammember.id");
+        $item -> userID = mysql_result($result, $i, "teammember.userID");
+        $item -> nickname = mysql_result($result, $i, "teammember.nickname");
+        $item -> admin = mysql_result($result, $i, "teammember.admin");
+        $item -> deleted = 1==mysql_result($result, $i, "teammember.deleted");
+        $item -> supporter = 1==mysql_result($result, $i, "teammember.supporter");
+        $item -> invaller = 1==mysql_result($result, $i, "teammember.invaller");
+        $item -> invitationID = mysql_result($result, $i, "teammember.invitationID");
+        $item -> invitationEmail = mysql_result($result, $i, "teammember.invitationEmail");
+        $item -> invitationDate = mysql_result($result, $i, "teammember.invitationDate");
+        $item -> acceptEmail = mysql_result($result, $i, "teammember.acceptEmail");
+        $item -> email = "";
+        $item -> phonenumber = "";
+        $array[] = $item;
+        $i++;
+    }
+    return $array;
+}
+
+/**************************************************
+ */
 function loadTeammembersOfUser($userID) {
     global $conn;
     $array = array();

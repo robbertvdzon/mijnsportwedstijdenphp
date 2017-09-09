@@ -649,7 +649,7 @@ function getMobileAppData($parameters) {
 
     // load all teammembers of all teams
     foreach ($result->teams as $team) {
-        $team->teammembers = dbcalls\loadTeammembers($team->id);
+        $team->teammembers = dbcalls\loadTeammembersNotDeleted($team->id);
     }
 
     /*
