@@ -1,0 +1,1 @@
+Hostname: <?php echo gethostname(); ?> <br>Version:
