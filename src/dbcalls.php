@@ -927,7 +927,7 @@ function saveGame($gameID, $score, $points,$meetingpoint, $homegame, $datetime, 
     $gameStatus = mysql_real_escape_string($gameStatus);
         
         
-	$q = "UPDATE games SET score='$score' , points='.(int)$points.', meetingpoint='".$meetingpoint."', ".
+	$q = "UPDATE games SET score='$score' , points='$points', meetingpoint='".$meetingpoint."', ".
 	"homegame='$homegameInt', datetime='$datetime'".
 	", membersPresentYes='$membersPresentYes', membersPresentNo='$membersPresentNo' ".
     ", opponent='$opponent'".
