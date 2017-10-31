@@ -11,7 +11,7 @@ echo cron\callCron();
 
 echo "Generate demodata\n";
 demodata\removeDemodata();
-demodata\generateDemodata();
+#demodata\generateDemodata();
 
 echo "Clean log tabel\n";
 cleanLogTable();
